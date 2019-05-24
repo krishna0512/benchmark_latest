@@ -79,20 +79,14 @@
 		<div class="col">
 			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#evaluationmodal">Evaluation Measures</a>
 			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#submissionformatmodal">Submission Format</a>
-			{% if user.is_authenticated %}
-			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#uploadsubmissionmodal">Upload Submission</a>
-			{% else %}
-			<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Please login to upload submissions">
-				<a href="#" class="btn btn-primary disabled">Upload Submission</a>
-			</span>
-			{% endif %}
+			<a href="#" class="btn btn-primary {% if not user.is_authenticated %}disabled{% endif %}" data-toggle="modal" data-target="#uploadsubmissionmodal">Upload Submission</a>
 			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#onlinesubmissionmodal">Online Submission</a>
 		</div>
 	</div>
 	<div class="card border-info my-3">
 		<div class="card-header bg-info text-light text-center">
 			Leaderboard
-			<span data-toggle="tooltip" class="fa fa-info-circle text-light" title="Info for the Submission leaderboard"></span>
+			<span class="fa fa-info-circle text-light" title="Info for the Submission leaderboard"></span>
 			<div class="btn-group ml-3">
 				<a class="btn btn-info {% if not online %}active{% endif %}" href="{{ selected_dataset.get_absolute_url }}">offline</a>
 				<a class="btn btn-info {% if online %}active{% endif %}" href="{{ selected_dataset.get_absolute_online_url }}">online</a>
@@ -133,6 +127,7 @@
 						<thead>
 							<tr>
 								<th></th>
+								<th>Rank</th>
 								<th>Method Title</th>
 								<th>Author(s)</th>
 								{% for ename in task.get_evaluation_heading %}
@@ -144,6 +139,7 @@
 							{% for sub in submission_list %}
 							<tr id="submission_{{ sub.id }}">
 								<td class="details-control"></td>
+								<td>{{ sub.rank }}</td>
 								<td>{{ sub.name }}</td>
 								<td>{{ sub.authors }}</td>
 								{% for val in sub.get_evaluation_value %}

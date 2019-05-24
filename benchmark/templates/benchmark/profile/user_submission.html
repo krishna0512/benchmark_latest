@@ -17,7 +17,6 @@
 			<th>
 				<a href="{{ task.get_absolute_url }}" title="Link to the task page">{{ task.name }}</a>
 			</th>
-			<th title="Is the submission mode online or offline?">Online?</th>
 			<th>Dataset</th>
 			{% for ename in task.get_evaluation_heading %}
 			<th>{{ ename }}</th>
@@ -30,13 +29,6 @@
 			<tr id="{{ submission.id }}" {% if not submission.public %}class="private-submission"{% endif %}>
 				<td class="details-control"></td>
 				<td>{{ submission.name }}</td>
-				<td>
-					{% if submission.online %}
-					<span class="fa fa-check"></span>
-					{% else %}
-					<span class="fa fa-times"></span>
-					{% endif %}
-				</td>
 				<td>
 					<a href="#" data-toggle="modal" data-target="#dataset{{ submission.dataset.id }}modal">version-{{ submission.dataset.version }}</a>
 				</td>

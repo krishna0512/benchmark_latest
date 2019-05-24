@@ -13,23 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from tastypie.api import Api
+from django.conf import settings
+from django.conf.urls.static import static
+from benchmark.resource import ApiSubmissionResource, DatasetImageResource
 
-from benchmark.resource import *
-
-v1_api = Api(api_name='v1')
-v1_api.register(SubmissionResource())
-v1_api.register(DatasetResource())
-# submission_resource = SubmissionResource()
-# dataset_image_resource = DatasetImageResource()
+submission_resource = ApiSubmissionResource()
+dataset_image_resource = DatasetImageResource()
 
 urlpatterns = [
     # path('', include('benchmark.urls')),
     path('benchmark/', include('benchmark.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include(v1_api.urls)),
+    path('api/', include(submission_resource.urls)),
+    path('api/', include(dataset_image_resource.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

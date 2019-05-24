@@ -18,14 +18,14 @@ def evaluate(result_path, gt_path):
         'Precision': 99.0,
         'AP': 98.0
     }
-    result_extract_path = '/tmp/result/'
-    gt_extract_path = '/tmp/gt/'
-    # extracting result zip file
-    with ZipFile(result_path, 'r') as z:
-        z.extractall(result_extract_path)
-    # extracting gt zip file
-    with ZipFile(gt_path, 'r') as z:
-        z.extractall(gt_extract_path)
+    # result_extract_path = '/tmp/result/'
+    # gt_extract_path = '/tmp/gt/'
+    # # extracting result zip file
+    # with ZipFile(result_path, 'r') as z:
+        # z.extractall(result_extract_path)
+    # # extracting gt zip file
+    # with ZipFile(gt_path, 'r') as z:
+        # z.extractall(gt_extract_path)
 
     return ret
 

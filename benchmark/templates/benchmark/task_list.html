@@ -15,29 +15,38 @@
 
 {% block main_content %}
 <div class="container">
+	<form method="GET">
 	<div class="row my-3 text-center">
 		<div class="col">
-			<select>
-				<option value="#">Modality</option>
-				<option value="1">Printed Book</option>
+			<select name="modality">
+				<option value="0" {% if request.GET.modality == '0' %}selected{% endif %}>Modality</option>
+				{% for modality in modality_list %}
+				<option value="{{ modality }}" {% if request.GET.modality == modality %}selected{% endif %}>{{ modality }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		<div class="col">
-			<select>
-				<option value="#">Language</option>
-				<option value="1">Hindi</option>
+			<select name="language">
+				<option value="0" {% if request.GET.language == '0' %}selected{% endif %}>Language</option>
+				{% for language in language_list %}
+				<option value="{{ language }}" {% if request.GET.language == language %}selected{% endif %}>{{ language }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		<div class="col">
-			<select>
-				<option value="#">Task</option>
-				<option value="1">Line Detection</option>
+			<select name="purpose">
+				<option value="0" {% if request.GET.purpose == '0' %}selected{% endif %}>Purpose</option>
+				{% for purpose in purpose_list %}
+				<option value="{{ purpose }}" {% if request.GET.purpose == purpose %}selected{% endif %}>{{ purpose }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		<div class="col">
-			<a href="#" class="btn btn-sm btn-info">Search</a>
+			<button type="submit" class="btn btn-sm btn-info">Search</button>
+			<a href="{{ request.path }}" class="btn btn-sm btn-secondary">Clear</a>
 		</div>
 	</div>
+	</form>
 	<div class="my-3">&nbsp;</div>
 	<div class="row my-3">
 		<div class="col">

@@ -15,12 +15,6 @@ urlpatterns = [
     ),
 
     path(
-        'index/',
-        TemplateView.as_view(template_name='benchmark/index.html'),
-        name='index'
-    ),
-
-    path(
         'accounts/',
         include('django.contrib.auth.urls')
     ),
@@ -38,14 +32,26 @@ urlpatterns = [
     ),
 
     path(
+        'demo_proposal/',
+        TemplateView.as_view(template_name='benchmark/demo_proposal.html'),
+        name='demo_proposal'
+    ),
+
+    path(
         'demo_change_password/',
         TemplateView.as_view(template_name='benchmark/demo_change_password.html'),
         name='demo_change_password'
     ),
 
     path(
+        'index/',
+        views.IndexTemplateView.as_view(),
+        name='index'
+    ),
+
+    path(
         'about/',
-        TemplateView.as_view(template_name='benchmark/about.html'),
+        views.AboutTemplateView.as_view(),
         name='about'
     ),
 
@@ -56,9 +62,9 @@ urlpatterns = [
     ),
 
     path(
-        'challenges/',
-        TemplateView.as_view(template_name='benchmark/challenges.html'),
-        name='challenges'
+        'challenge/',
+        views.ChallengeTemplateView.as_view(),
+        name='challenge'
     ),
 
     path(
@@ -102,8 +108,12 @@ urlpatterns = [
         name='delete-submission'
     ),
 
+    path('confirm/', views.confirm_api_submission, name='confirm'),
+
     # path('leaderboard/upload_submission/<int:tc_id>', views.uploadSubmission, name='uploadSubmission'),
     path('task_controller/<int:task_id>', views.task_controller, name='task_controller'),
+
+    path('delete_submission', views.delete_submission, name='delete_submission'),
 
     path('ajax/leaderboard_data/<int:tc_id>', views.getLeaderboardTableData, name='getLeaderboardTableData'),
     path('ajax/my_methods_data/<int:tc_id>', views.getmyMethodsTableData, name='getmyMethodsTableData'),

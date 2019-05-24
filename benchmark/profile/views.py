@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.views.generic import ListView
@@ -7,7 +6,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 
 from benchmark.models import Submission, Task, Dataset
 
-class UserSubmissionListView(ListView, LoginRequiredMixin):
+class UserSubmissionListView(ListView):
     """Generic listbased view for user submissions.
     """
     

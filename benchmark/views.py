@@ -2,19 +2,31 @@ import random
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 
 from benchmark.forms import UserRegistrationForm, SubmissionForm
-from benchmark.models import Dataset, Resource, Submission, Task
+from benchmark.models import Dataset, Resource, Submission, Task, ApiSubmission
 
 # Create your views here.
+
+class IndexTemplateView(TemplateView):
+    template_name = 'benchmark/index.html'
+    navigation = 'index'
+
+class ChallengeTemplateView(TemplateView):
+    template_name = 'benchmark/challenge.html'
+    navigation = 'challenge'
+
+class AboutTemplateView(TemplateView):
+    template_name = 'benchmark/about.html'
+    navigation = 'about'
 
 class ResourceListView(ListView):
     """generic listbased views for resource
@@ -23,6 +35,7 @@ class ResourceListView(ListView):
     """
     model = Resource
     context_object_name = 'resource_list'
+    navigation = 'resource'
 
 class TaskListView(ListView):
     """Generic listbased view for selection of task
@@ -30,6 +43,34 @@ class TaskListView(ListView):
     template_name = 'benchmark/task_list.html'
     """
     model = Task
+    navigation = 'task'
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        modality = list(set([i.modality for i in Task.objects.all()]))
+        language = list(set([i.language for i in Task.objects.all()]))
+        purpose = list(set([i.purpose for i in Task.objects.all()]))
+        context['modality_list'] = modality
+        context['language_list'] = language
+        context['purpose_list'] = purpose
+        return context
+
+    def get_queryset(self):
+        """
+        This method returns the queryset displayed in task_list
+        according to the paramters present in modality, language, purpose
+        """
+        q = self.model.objects.all()
+        modality = self.request.GET.get('modality', None)
+        if modality and modality != '0':
+            q = q.filter(modality__iexact=modality)
+        language = self.request.GET.get('language', None)
+        if language and language != '0':
+            q = q.filter(language__iexact=language)
+        purpose = self.request.GET.get('purpose', None)
+        if purpose and purpose != '0':
+            q = q.filter(purpose__iexact=purpose)
+        return q
 
 class TaskDetailView(FormMixin, DetailView):
     """Generic detailbased view for displaying individual task page.
@@ -196,6 +237,28 @@ def task_controller(request, task_id):
                 # # messages.error(request, 'Failed to save Submission form')
     # return redirect('benchmark:leaderboard', pk=tc_id)
 
+def delete_submission(request):
+    """
+    Deletes the given submission from the id and redirects the
+    user to the leaderboard page.
+
+    TODO: redirect the user to the mymethods page instead of the leaderboard page.
+    TODO: Make this method more secure
+          Right now it is highly inscure because any person can access the url delete_submission
+          and arbitrary sub_id to delete the submission
+          To make it more secure check if user is logged in and user can delete only his sub.
+    """
+    sid = request.GET.get('sub_id', None)
+    try:
+        s = Submission.objects.get(pk=sid)
+        tid = s.task_category.id
+        s.delete()
+    except:
+        messages.warning(request, 'Invalid Submission ID to delete_submission')
+        return redirect('benchmark:index')
+    messages.success(request, '<Submission: {}> Deleted!'.format(sid))
+    return redirect('benchmark:leaderboard', pk=tid)
+
 def getLeaderboardTableData(request, tc_id):
     """Ajax view that returns the leaderboard table
     """
@@ -219,30 +282,31 @@ def getmyMethodsTableData(request, tc_id):
         data.append(i.getJSONDict())
     return JsonResponse({'data':data})
 
-class SubmissionDeleteView(UserPassesTestMixin, DeleteView):
+class SubmissionDeleteView(DeleteView, LoginRequiredMixin):
     model = Submission
 
     def get(self, *args, **kwargs):
-        """
-        This function is required because to bypass the need
-        for the confirm_delete page for django.
-        When DeleteView is called  using GET by default it returns
-        submission_confirm_delete.html page.
-        This function overwrites that behaviour so that, it automatically
-        acts as though it received YES signal in POST.
-        """
         return self.post(*args, **kwargs)
 
     def get_success_url(self):
         messages.success(self.request, 'You have deleted the submission successfully!')
         return self.request.GET.get('next','benchmark:index')
 
-    def get_login_url(self):
-        return reverse('benchmark:login')
-
-    def test_func(self):
-        if not self.request.user:
-            messages.error(self.request, 'You cannot delete submission unless logged in!')
-            return False
-        messages.error(self.request, 'You don\'t have the permission to delete this Submission Instance')
-        return self.get_object().user.id == self.request.user.id
+def confirm_api_submission(request):
+    if not ApiSubmission.objects.all().exists():
+        return JsonResponse({'response':'Invalid Submissions from API, Please try again'})
+    a = ApiSubmission.objects.all().first()
+    Submission.objects.create(
+        dataset=Dataset.objects.all()[0],
+        user=User.objects.all()[0],
+        rank=0,
+        name=a.title,
+        description=a.description,
+        authors=a.authors,
+        code_link=a.code_link,
+        paper_link=a.paper_link,
+        result=None,
+        online=True
+    )
+    ApiSubmission.objects.all().delete()
+    return JsonResponse({'response':'Online Submission saved successfully.'})

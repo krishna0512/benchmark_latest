@@ -114,19 +114,19 @@
 				<nav class="navbar navbar-expand-lg navbar-dark">
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav w-100 d-flex justify-content-around">
-							<li class="nav-item active">
+							<li class="nav-item {% if view.navigation == 'index' %}active{% endif %}">
 								<a class="nav-link" href="{% url 'benchmark:index' %}">Home</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item {% if view.navigation == 'resource' %}active{% endif %}">
 								<a class="nav-link" href="{% url 'benchmark:resource' %}">Resource</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'benchmark:challenges' %}">Challenges</a>
+							<li class="nav-item {% if view.navigation == 'challenge' %}active{% endif %}">
+								<a class="nav-link" href="{% url 'benchmark:challenge' %}">Challenge</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item {% if view.navigation == 'task' %}active{% endif %}">
 								<a class="nav-link" href="{% url 'benchmark:task-list' %}">Task</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item {% if view.navigation == 'about' %}active{% endif %}">
 								<a class="nav-link" href="{% url 'benchmark:about' %}">About</a>
 							</li>
 							{% if user.is_authenticated %}
@@ -140,7 +140,7 @@
 								</div>
 							</li>
 							{% else %}
-							<li class="nav-item">
+							<li class="nav-item {% block login-nav %}{% endblock %}">
 								<a class="nav-link" href="{% url 'benchmark:login' %}?next={{ request.path_info }}">Login</a>
 							</li>
 							{% endif %}

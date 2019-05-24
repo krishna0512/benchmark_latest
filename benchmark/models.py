@@ -92,6 +92,18 @@ class Task(models.Model):
         verbose_name=_('Second Display Image'),
         help_text=_('Field for storing the image displayed in task page.')
     )
+    modality = models.CharField(
+        max_length=100,
+        default=''
+    )
+    language = models.CharField(
+        max_length=100,
+        default=''
+    )
+    purpose = models.CharField(
+        max_length=100,
+        default=''
+    )
     description = models.TextField(default='')
     # Writeup for the Submission format modal in main task page.
     submission_format = models.TextField(default='')
@@ -235,25 +247,15 @@ class Dataset(models.Model):
     def __str__(self):
         return '{} ({})'.format(self.name, self.version)
 
-def dataset_image_directory_path(instance, filename):
-    return 'Tasks/{}/Datasets/Images/{}'.format(instance.task.nickname, filename)
-
 class DatasetImage(models.Model):
-    """Model to store the individual images from the dataset zipfile
-    Note: This model design assumes that dataset is already saved
-    when this model is populated.
-    usually this model is populated using the signals post_save for Dataset.
-    """
     image = models.FileField(
-        upload_to=dataset_image_directory_path,
-        null=True,
-        help_text=_('Attribute to store the individual images for a dataset')
+        upload_to='dataset/images/',
+        null=True
     )
     dataset = models.ForeignKey(
         Dataset,
         on_delete=models.CASCADE,
-        related_name='images',
-        help_text=_('Dataset to which this Image belongs?')
+        related_name='images'
     )
 
 class ApiSubmission(models.Model):
@@ -371,10 +373,13 @@ class Submission(models.Model):
         )
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        result = mod.evaluate(
-            self.result.path,
-            self.dataset.gtfile.path
-        )
+        if self.result:
+            result = mod.evaluate(
+                self.result.path,
+                self.dataset.gtfile.path
+            )
+        else:
+            result = mod.evaluate('','')
         print(result)
         # saving the result obtained from the em_code file to
         # the EvaluationResult Model.

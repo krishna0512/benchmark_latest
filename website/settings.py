@@ -26,8 +26,8 @@ SECRET_KEY = 'px2vgn)@*5!j+j$n)4k+wgn9j(fog7-b3i8@t(78%1gxw#ejzo'
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = ['preon.iiit.ac.in']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['preon.iiit.ac.in','127.0.0.1']
 
 
 # Application definition
