@@ -1,0 +1,17 @@
+name;document_id_key(p=1,h=2,s=3,v=4)
+Scanned Documents;1
+Scanned Historical Documents;1
+Scanned Newspaper;1
+Mobile Scanned Documents;1
+Mobile Scanned Historical Documents;1
+Mobile Scanned Newspaper;1
+pdf-to-image Documents;1
+Scanned Handwritten Documents;2
+Scanned Handwritten Historical Documents;2
+Mobile Scanned Handwritten Documents;2
+Mobile Scanned Handwritten Historical Documents;2
+Online Handwritten Documents;2
+Natural scene images captured by camera;3
+Natural scene images captured by mobile;3
+Captured Video;4
+Newsfeed Video;4

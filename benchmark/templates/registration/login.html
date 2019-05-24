@@ -1,0 +1,54 @@
+{% extends "benchmark/base.html" %}
+{% load static %}
+{% load add_attr %}
+
+{% block custom_css %}
+<style>
+	.errorlist{
+		margin: 0;
+		padding: 0;
+	}
+	.errorlist li {
+		background-color: red;
+		color: white;
+		display: block;
+		font-size: 1.2em;
+		margin: 0 0 3px;
+		padding: 4px 5px;
+	}
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div class="space-small">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				{% if form.errors %}
+				<ul class="errorlist">
+					<li>Incorrect Username/Password combination</li>
+				</ul>
+				{% endif %}
+				<form method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						{{ form.username.label_tag }}
+						{{ form.username|add_attr:"form-control, placeholder: Enter Username" }}
+					</div>
+
+					<div class="form-group">
+						{{ form.password.label_tag }}
+						{{ form.password|add_attr:"form-control, placeholder: Enter Password" }}
+					</div>
+					
+					<button type="submit" class="btn btn-primary" id="submit">Login</button>
+				</form>
+				<p></p>
+				<p>New User? <u><a href="{% url 'benchmark:register' %}">Register</a></u> here</p>
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

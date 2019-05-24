@@ -1,0 +1,18 @@
+ACTIVE BUGS
+
+->		No validation for the 'Add submission' form in MyMethods
+
+-> 		label-required css class not working when placed in style.css for some reason (even after adding !important)
+		temporary fix: placed the declaration of that css class in leaderboard.html custom_css
+		But have to investigate why this is not working!
+
+SOLVED BUGS
+
+-> 		Validation not displaying when login.
+
+-> 		When going from printed.html to leaderboard.html while selecting the GO button of leaderboard, the tab 'leaderboard' in leaderboard.html 
+		does not get selected automatically even though there is a js code to do that.
+		This problem doesn't exists for overview button when going from printed.html to leaderboard.html, the overview tab is selected.
+		Solution: 
+		{{ overviewTabselected }} in leaderboard.html custom_js was outputting empty value in case of false instead of 'false'
+		resulting in the js of that portion failing.

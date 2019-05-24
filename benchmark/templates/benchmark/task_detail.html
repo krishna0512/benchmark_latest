@@ -1,0 +1,208 @@
+{% extends "benchmark/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block custom_css %}
+<style>
+#leaderboard_table tbody td.sorting_1 {
+	background-color: #e1f5fe;
+}
+#leaderboard_table thead th.sorting_asc,
+#leaderboard_table thead th.sorting_desc {
+	background-color: #e1f5fe;
+	border-top: 1px solid #111;
+	border-left: 1px solid #111;
+	border-right: 1px solid #111;
+	border-bottom: none;
+}
+</style>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+	$(document).ready(function() {
+		var leaderboard_table = $('#leaderboard_table').DataTable( {
+			{# sorted the list according to year #}
+			"searching": false,
+			"paging": false,
+			"bInfo": false,
+			"columnDefs": [{
+				"targets": 0,
+				"searchable": false,
+				"orderable": false
+			}],
+			"order": [[4, "asc"]]
+		});
+		$('#leaderboard_table tbody').on('click', 'td.details-control', function() {
+			console.log('hello');
+			var submission_id = $(this).closest('tr').attr('id').split('_')[1];
+			console.log(submission_id);
+			var tr = $(this).closest('tr');
+			var row = leaderboard_table.row(tr);
+			if (row.child.isShown()) {
+				row.child.hide();
+				tr.removeClass('shown');
+			}
+			else {
+				row.child('<table>'+ $('#description_' + submission_id).html() +'</table>').show();
+				tr.addClass('shown');
+			}
+		});
+	});
+</script>
+{% endblock %}
+
+{% block main_content %}
+{% include 'benchmark/task_modals.html' %}
+<div class="container mt-2">
+	<div class="h3 text-center my-3">
+		{{ task.name|title }} ({{ task.nickname|upper }})
+	</div>
+	<div class="row">
+		<div class="col">
+			<figure class="figure float-left w-50 text-center">
+				<img src="{{ task.display_image_1.url }}" class="figure-img img-fluid rounded" style="height:200px;">
+				<figcaption class="figure-caption text-center">Task Display Figure 1</figcaption>
+			</figure>
+			<figure class="figure w-50 text-center">
+				<img src="{{ task.display_image_2.url }}" class="figure-img img-fluid rounded" style="height:200px;">
+				<figcaption class="figure-caption text-center">Task Display figure 2</figcaption>
+			</figure>
+		</div>
+		<div class="col">
+			{{ task.description|linebreaks }}
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row mt-2">
+		<div class="col">
+			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#evaluationmodal">Evaluation Measures</a>
+			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#submissionformatmodal">Submission Format</a>
+			{% if user.is_authenticated %}
+			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#uploadsubmissionmodal">Upload Submission</a>
+			{% else %}
+			<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Please login to upload submissions">
+				<a href="#" class="btn btn-primary disabled">Upload Submission</a>
+			</span>
+			{% endif %}
+			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#onlinesubmissionmodal">Online Submission</a>
+		</div>
+	</div>
+	<div class="card border-info my-3">
+		<div class="card-header bg-info text-light text-center">
+			Leaderboard
+			<span data-toggle="tooltip" class="fa fa-info-circle text-light" title="Info for the Submission leaderboard"></span>
+			<div class="btn-group ml-3">
+				<a class="btn btn-info {% if not online %}active{% endif %}" href="{{ selected_dataset.get_absolute_url }}">offline</a>
+				<a class="btn btn-info {% if online %}active{% endif %}" href="{{ selected_dataset.get_absolute_online_url }}">online</a>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-4">
+					<table class="table">
+						<thead class="text-center">
+							<tr>
+								<th>Version</th>
+								<th>Dataset</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for dataset in task.datasets.all %}
+							{% if dataset.id == selected_dataset.id %}
+							<tr class="table-active">
+							{% else %}
+							<tr>
+							{% endif %}
+								<td>{{ dataset.version }}</td>
+								<td>
+									<a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a>
+								</td>
+								<td class="text-right text-small">
+									<a href="#" data-toggle="modal" data-target="#dataset{{ dataset.id }}modal">more</a>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="col-8">
+					<table class="table" id="leaderboard_table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Method Title</th>
+								<th>Author(s)</th>
+								{% for ename in task.get_evaluation_heading %}
+								<th>{{ ename }}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for sub in submission_list %}
+							<tr id="submission_{{ sub.id }}">
+								<td class="details-control"></td>
+								<td>{{ sub.name }}</td>
+								<td>{{ sub.authors }}</td>
+								{% for val in sub.get_evaluation_value %}
+								<td>{{ val }}</td>
+								{% endfor %}
+							</tr>
+							<tr class="d-none">
+								<td>
+									<div id="description_{{ sub.id }}">
+										<div class="ml-3 my-2">
+											<form method="post">
+												<div class="form-group row">
+													<label for="id_name" class="col-2 col-form-label col-form-label-sm">Title</label>
+													<div class="col-9">
+														<input type="text" readonly class="form-control form-control-sm" id="id_name" value="{{ sub.name }}">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="id_description" class="col-2 col-form-label col-form-label-sm">Description</label>
+													<div class="col-9">
+														<textarea cols="10" rows="4" type="text" readonly class="form-control form-control-sm" id="id_description">{{ sub.description }}</textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-5">
+														<label for="id_code_link" class="col-form-label col-form-label-sm">Code Link</label>
+														<input type="url" readonly class="form-control form-control-sm" id="id_code_link" value="{{ sub.code_link }}">
+													</div>
+													<div class="col-1"></div>
+													<div class="form-group col-5">
+														<label for="id_paper_link" class="col-form-label col-form-label-sm">Paper Link</label>
+														<input type="url" readonly class="form-control form-control-sm" id="id_paper_link" value="{{ sub.paper_link }}">
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-5">
+														<label for="id_submission_date" class="col-form-label col-form-label-sm">Submission Date</label>
+														<input type="text" readonly class="form-control-plaintext" id="id_submission_date" value="{{ sub.creation_timestamp }}">
+													</div>
+													<div class="col-1"></div>
+													<div class="form-group col-5">
+														<label for="id_last_modified" class="col-form-label col-form-label-sm">Last Modified</label>
+														<input type="text" readonly class="form-control-plaintext" id="id_last_modified" value="{{ sub.last_modified|naturaltime }}">
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</td>
+								{% for i in i|rjust:20 %}
+								<td class="d-none"></td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'benchmark/base.html' %}
+{% load static %}
+
+{% block custom_js %}
+<script>
+	$(document).ready(function() {
+		$('#resource_table').DataTable( {
+			{# sorted the list according to year #}
+			"order": [[1, "desc"]]
+		});
+	});
+</script>
+{% endblock %}
+
+{% block main_content %}
+	<div class="space-small">
+		<div class="container">
+			<div class="row">
+
+				<div class="col">
+					<table class="table table-stripped table-hover" id="resource_table">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th class="text-left">Year</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if resource_list %}
+							{% for resource in resource_list %}
+							<tr>
+								<td>
+									<a class="text-info" href="{{ resource.page_link }}" target="_blank">{{ resource.title }}</a>
+									<div class="text-muted"><small>{{ resource.authors }}</small></div>
+								</td>
+								<td class="text-left">
+									<span>{{ resource.year }}</span>
+								</td>
+							</tr>
+							{% endfor %}
+							{% endif %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Title</th>
+								<th class="text-left">Year</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

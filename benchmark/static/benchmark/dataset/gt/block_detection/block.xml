@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+
+<resultset statement="select b.BookCode,b.PageNo,b.BlockNo,b.BlockType,b.rectLeft,b.rectRight,b.rectTop,b.rectBottom,b.version from BLOCK_ANNOTATION b where b.BookCode=9812 order by b.PageNo
+">
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>8</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>353</rectLeft>
+	<rectRight>2703</rectRight>
+	<rectTop>622</rectTop>
+	<rectBottom>4014</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>10</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>219</rectLeft>
+	<rectRight>2584</rectRight>
+	<rectTop>712</rectTop>
+	<rectBottom>3922</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>12</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>245</rectLeft>
+	<rectRight>2537</rectRight>
+	<rectTop>161</rectTop>
+	<rectBottom>3941</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>30</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>247</rectLeft>
+	<rectRight>2525</rectRight>
+	<rectTop>226</rectTop>
+	<rectBottom>3925</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>74</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>252</rectLeft>
+	<rectRight>2508</rectRight>
+	<rectTop>288</rectTop>
+	<rectBottom>3916</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>82</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>239</rectLeft>
+	<rectRight>2476</rectRight>
+	<rectTop>282</rectTop>
+	<rectBottom>3950</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>85</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>654</rectLeft>
+	<rectRight>2859</rectRight>
+	<rectTop>227</rectTop>
+	<rectBottom>3937</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>95</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>673</rectLeft>
+	<rectRight>2885</rectRight>
+	<rectTop>285</rectTop>
+	<rectBottom>3958</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>97</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>688</rectLeft>
+	<rectRight>2859</rectRight>
+	<rectTop>239</rectTop>
+	<rectBottom>3932</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>98</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>269</rectLeft>
+	<rectRight>2486</rectRight>
+	<rectTop>273</rectTop>
+	<rectBottom>3917</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>100</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>333</rectLeft>
+	<rectRight>2529</rectRight>
+	<rectTop>311</rectTop>
+	<rectBottom>3974</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>141</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>670</rectLeft>
+	<rectRight>2813</rectRight>
+	<rectTop>228</rectTop>
+	<rectBottom>3927</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>144</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>261</rectLeft>
+	<rectRight>2498</rectRight>
+	<rectTop>194</rectTop>
+	<rectBottom>3854</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>146</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>226</rectLeft>
+	<rectRight>2426</rectRight>
+	<rectTop>174</rectTop>
+	<rectBottom>3866</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>150</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>151</rectLeft>
+	<rectRight>2334</rectRight>
+	<rectTop>224</rectTop>
+	<rectBottom>3920</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>152</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>115</rectLeft>
+	<rectRight>2374</rectRight>
+	<rectTop>162</rectTop>
+	<rectBottom>3880</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>158</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>245</rectLeft>
+	<rectRight>2452</rectRight>
+	<rectTop>287</rectTop>
+	<rectBottom>3948</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>169</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>601</rectLeft>
+	<rectRight>2747</rectRight>
+	<rectTop>265</rectTop>
+	<rectBottom>3930</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>172</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>304</rectLeft>
+	<rectRight>2489</rectRight>
+	<rectTop>364</rectTop>
+	<rectBottom>4070</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>177</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>581</rectLeft>
+	<rectRight>2779</rectRight>
+	<rectTop>249</rectTop>
+	<rectBottom>3959</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>185</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>611</rectLeft>
+	<rectRight>2771</rectRight>
+	<rectTop>255</rectTop>
+	<rectBottom>3956</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>188</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>284</rectLeft>
+	<rectRight>2479</rectRight>
+	<rectTop>263</rectTop>
+	<rectBottom>3944</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>193</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>671</rectLeft>
+	<rectRight>2833</rectRight>
+	<rectTop>315</rectTop>
+	<rectBottom>4000</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>194</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>274</rectLeft>
+	<rectRight>2472</rectRight>
+	<rectTop>294</rectTop>
+	<rectBottom>3974</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>229</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>673</rectLeft>
+	<rectRight>2813</rectRight>
+	<rectTop>274</rectTop>
+	<rectBottom>3936</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>236</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>279</rectLeft>
+	<rectRight>2457</rectRight>
+	<rectTop>286</rectTop>
+	<rectBottom>3869</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>239</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>533</rectLeft>
+	<rectRight>2763</rectRight>
+	<rectTop>296</rectTop>
+	<rectBottom>3914</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>243</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>554</rectLeft>
+	<rectRight>2778</rectRight>
+	<rectTop>277</rectTop>
+	<rectBottom>3919</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>249</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>535</rectLeft>
+	<rectRight>2781</rectRight>
+	<rectTop>278</rectTop>
+	<rectBottom>3929</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>250</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>193</rectLeft>
+	<rectRight>2425</rectRight>
+	<rectTop>334</rectTop>
+	<rectBottom>3964</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>251</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>566</rectLeft>
+	<rectRight>2784</rectRight>
+	<rectTop>316</rectTop>
+	<rectBottom>3934</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>258</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>242</rectLeft>
+	<rectRight>2499</rectRight>
+	<rectTop>317</rectTop>
+	<rectBottom>3911</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>259</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>642</rectLeft>
+	<rectRight>2853</rectRight>
+	<rectTop>333</rectTop>
+	<rectBottom>3966</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>267</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>588</rectLeft>
+	<rectRight>2836</rectRight>
+	<rectTop>256</rectTop>
+	<rectBottom>3906</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>268</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>359</rectLeft>
+	<rectRight>2589</rectRight>
+	<rectTop>312</rectTop>
+	<rectBottom>3973</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>275</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>672</rectLeft>
+	<rectRight>2902</rectRight>
+	<rectTop>288</rectTop>
+	<rectBottom>3935</rectBottom>
+	<version>1</version>
+  </row>
+<row>
+	<BookCode>9812</BookCode>
+	<PageNo>277</PageNo>
+	<BlockNo>1</BlockNo>
+	<BlockType>Text</BlockType>
+	<rectLeft>600</rectLeft>
+	<rectRight>2818</rectRight>
+	<rectTop>310</rectTop>
+	<rectBottom>3950</rectBottom>
+	<version>1</version>
+  </row>
+</resultset>

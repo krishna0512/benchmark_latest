@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+	<object model="benchmark.task" pk="2">
+		<field name="name" type="CharField">Line Detection for Hindi Printed Documents</field>
+		<field name="nickname" type="CharField">LDHPD</field>
+		<field name="display_image_1" type="FileField">Tasks/LDHPD/printed_task_figure_1.png</field>
+		<field name="display_image_2" type="FileField">Tasks/LDHPD/printed_task_figure_2.png</field>
+		<field name="description" type="TextField">The aim of this task is accurately localize lines of text by means of bounding boxes, Authors will be asked to localize every line in all test images.
+			All the images in the dataset for task are in the form of JPEG format.</field>
+		<field name="submission_format" type="TextField">Localization results will be saved in one UTF-8 encoded text file per test image. Authors will be asked to submit a single ZIP file containing all the text files. Result files are named after the name of the test images (e.g. Printed_600_hindi_180.txt). The resultant text files will have the following format with CR/LF line endings.
+
+left_1,top_1,right_1,bottom_1,score_1
+left_2,top_2,right_2,bottom_2,score_2
+...
+left_n,top_n,right_n,bottom_n,score_n
+
+Authors will be asked to include a confidence score for every bounding box. As this score will allow us to calculate an Average Precision (AP) score for the submission.</field>
+		<field name="sample_submission" type="FileField">Tasks/LDHPD/sample_submission.zip</field>
+		<field name="sample_online_submission" type="FileField">Tasks/LDHPD/test.py</field>
+		<field name="em_description" type="TextField">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</field>
+		<field name="em_code" type="FileField">Tasks/LDHPD/187.py</field>
+	</object>
+</django-objects>

@@ -1,0 +1,145 @@
+{% extends "benchmark/base.html" %}
+{% load static %}
+
+{% block page_title %}Benchmark Portal - About{% endblock %}
+
+{% block main_content %}
+	<div class="space-small">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p><strong>‘Indian Language Text Recognition’</strong> is a benchmarking portal for recognizing Indian language text in printed documents, handwritten documents, scene images, videos, etc.,framed by the Centre for Visual Information Technology (CVIT), IIIT Hyderabad. The aim of this project is to bring together researchers working in this field, and provide them with a suitable platform to evaluate and compare the performance of their methods on standard datasets.  
+					</p>
+					<p>
+					As a part of initiative, we focus on the following aspects:
+					<ul>
+						<li>Provide standardised test datasets</li>
+						<li>Enable evaluation and comparison of different methods</li>
+						<li>Plan to run challenges, host workshops etc.</li>
+						<li>Provide resources for basic domain knowledge</li>
+					</ul></p>
+					<p>We are considering five different types of documents images (1) printed document images (2) handwritten document images (3) scene text images (4) text in videos and (5) miscellaneous. 
+					Each of these document images has their own characteristic which makes difficulties to analysis those documents. Here we discuss all these types of documents and various tasks in those documents in our benchmarking system. 
+					</p>
+					<p>
+					<div class="accordion" id="accordionexample">
+						<div class="card">
+							<div class="card-header" id="heading1">
+								<h5 class="mb-0">
+									<a class="btn btn-link" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+										Printed Documents
+									</a>
+								</h5>
+							</div>
+							<div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordionexample">
+								<div class="card-body">
+									<p>
+									There are machine printed documents. Due to large volumes of documents of unconstrained font types and image quality, it very difficult to process printed documents in application of digital library.
+									</p><p>
+									Indian language text printed documents are included in this portal. Various types of printed documents based on their modalities such as : <i>(1) Scanned documents (2) scanned historical documents (3) scanned newspaper (4)  mobile scanned documents (5) mobile scanned historical documents (6) mobile scanned newspaper (7) pdf-to-image documents (8) pdf-to-image book</i> are considered in this benchmarking system. Various task like <strong>page segmentation or page recognition, line recognition, word recognition and character recognition</strong> in the printed documents are currently included in this portal. </p>
+									<p>
+									<ul>
+										<li><strong>Page Recognition:</strong> It recognizes all texts present in a page or a printed document image.</li>
+										<br/>
+										<li><strong>Line Recognition:</strong> The objective of the task is to recognize each line of text present in a page of a printed document image.</li>
+										<br/>
+										<li><strong>Word Recognition:</strong> It recognizes each individual word present in a document.</li>
+										<br/>
+										<li><strong>Character Recognition:</strong> This task recognizes each character in a document.</li>
+									</ul>
+									</p>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="card">
+							<div class="card-header" id="heading2">
+								<h5 class="mb-0">
+									<a class="btn btn-link" data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+										Handwritten Documents
+									</a>
+								</h5>
+							</div>
+							<div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionexample">
+								<div class="card-body">
+									<p>
+									Analysis of handwritten documents is very difficult due to variation in handwritten style, font, ink etc. It is important for digitized historical handwritten documents, verification of author’s authentication, etc.    
+									</p><p>
+									Handwritten documents containing Indian language text are taken into consideration in this portal. Various types of modalities like: <i>(1) scanned handwritten documents (offline) (2) mobile scanned handwritten documents (offline) (3) scanned handwritten historical documents (offline) (4) mobile scanned handwritten historical documents (offline) (5) online handwritten documents</i> are considered. Different task such as <strong>page segmentation or page recognition, line recognition, word recognition and character recognition</strong> are currently included in this portal.
+									</p><p>
+									<ul>
+										<li><strong>Page Recognition:</strong> It recognizes all texts present in a page or a printed document image.</li>
+										<br/>
+										<li><strong>Line Recognition:</strong> The objective of the task is to recognize each line of text present in a page of a printed document image.</li>
+										<br/>
+										<li><strong>Word Recognition:</strong> It recognizes each individual word present in a document.</li>
+										<br/>
+										<li><strong>Character Recognition:</strong> This task recognizes each character in a document.</li>
+									</ul>
+									</p>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="card">
+							<div class="card-header" id="heading3">
+								<h5 class="mb-0">
+									<a class="btn btn-link" data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+										Scene Text
+									</a>
+								</h5>
+							</div>
+							<div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionexample">
+								<div class="card-body">
+									<p>
+									Text in natural scene images usually contains a lot of semantic value such as product names, shop names, location names and traffic signs. Recognizing these texts is an important step for understanding those images.  It has many content based image and video applications including content based web image search,
+									video information retrieval and mobile based text analysis and recognition. Unlike printed documents, recognition of text in natural scene images are more difficult due to various complex factors like: the large variations in backgrounds, textures, fonts and illumination conditions; and occlusion. </p><p>
+	
+									Here we mainly consider natural scene images containing Indian language texts. Two different types of modalities like <i>(1) natural scene images captured by camera and (2) natural scene images captured by mobile</i> are taken into consideration. Three different tasks like <strong>text localization,  word recognition and end-to-end word recognition</strong> are currently considered.</p>
+									<p>
+									<ul>
+										<li><strong>Text Localization:</strong> The objective of this task is to detect text locations in the image in the form of bounding box that corresponds to words.</li>
+										<br/>
+										<li><strong>Word Recognition:</strong> The locations (bounding boxes) of words in the image are assumed to be known.<br/>Word recognition consists of identifying the characters and recognizing these characters as a word from a cropped image patch.</li>
+										<br/>
+										<li><strong>End-to-End Word Recognition:</strong> Its objective is to localize and recognize all the words in the image in a single step.</li>
+									</ul>
+									</p>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="card">
+							<div class="card-header" id="heading4">
+								<h5 class="mb-0">
+									<a class="btn btn-link" data-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+										Text in Video
+									</a>
+								</h5>
+							</div>
+							<div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionexample">
+								<div class="card-body">
+									<p>
+									Nowadays the size of the available digital video content is rapidly increasing. This fact leads to need for fast and effective algorithms for information retrieval from videos. Textual information in videos constitutes a very rich source of high level semantics for retrieval and indexing.  For this purpose, detection of texts in videos are important task. Text detection and recognition in video is also a challenging computer vision problem. It has  numerous real world applications including video indexing, assistive technology for the visually impaired, automatic localization for businesses, and robotic navigation.  Due to motion, large variation in background, color, font, texture, illumination; and occlusion, it is very difficult to localise and recognise text in video sequences.  
+									</p><p>
+									Here video sequences containing Indian language texts are considered. Eight different types of modalities like: <i>(1) Captured Video (2) Newsfeed Video</i> are taken into consideration. Two different tasks like <strong>text localization</strong> and <strong>end-to-end word recognition</strong> are currently considered.</p>
+									<p>
+									<ul>
+										<li><strong>Text Localization:</strong> The objective of this task is to localize all the words in the form of bounding boxes and track all the words over the video sequence.</li>
+										<br/>
+										<li><strong>End-to-End Word Recognition:</strong> Its objective is to localize and recognize all the words in video sequence.<br/>This task requires that correctly recognized words are also correctly localized in every frame and tracked correctly over the video sequence.</li>
+									</ul>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

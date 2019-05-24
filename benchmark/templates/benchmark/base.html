@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% include "benchmark/head_content.html" %}
+		<title>
+			{% block page_title %}Benchmark Portal{% endblock %}
+		</title>
+		<style>
+			{# CSS for base.html page #}
+			.right-logo{
+				width: 70%;
+			}
+			.left-logo{
+				width: 50%;
+			}
+			.text-header strong{
+				text-align: center;
+				color: #000;
+				font-size: 20px;
+			}
+
+			{# CSS classes that are commanly used accross all pages. #}
+			.unorderlist{
+				margin-left: 30px;
+				list-style-type: disc;
+			}
+			td.details-control {
+				background: url("{% static 'benchmark/images/details_open.png' %}") no-repeat center center;
+				cursor: pointer;
+			}
+			tr.shown td.details-control {
+				background: url("{% static 'benchmark/images/details_close.png' %}") no-repeat center center;
+			}
+			{# This CSS not working when placed in style.css for some reason #}
+			label.label-required::after { content: ' *'; }
+		</style>
+		{% block custom_css %}{% endblock %}
+
+		<script>
+			{# Depends on Jquery and jquery.sticky.js file in static #}
+			$(document).ready(function() {
+				"use strict";
+				if ($(window).width() >= "768") {
+					$('.header-wrapper').sticky({topSpaceing:0});
+				}
+				// Enable tooltip across all website
+				$('[data-toggle="tooltip"]').tooltip();
+
+				// Enable Bootstrap confirmation across all website
+				$('[data-toggle=confirmation]').confirmation({
+					rootSelector: '[data-toggle=confirmation]'
+				});
+
+				/*
+				setTimeout(function() {
+					$('.close').click();
+				}, 1500);
+				*/
+
+				// Enable Datepicker from class across all website
+				$('.datepicker').datepicker({
+					changeMonth: true,
+					changeYear: true,
+					yearRange: '-100:+2'
+				});
+			});
+		</script>
+		{% block custom_js %}{% endblock %}
+	</head>
+
+	<body>
+
+		{% block messages_alert %}
+			{% if messages %}
+				<ul class="messages list-unstyled">
+					{% for message in messages %}
+					<li class="alert alert-{{ message.tags }} fade show">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<strong class="text-uppercase">{{ message.tags }}!</strong> {{ message }}
+					</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endblock %}
+
+		<header>{% block header_content %}
+			<div class="top-bar mb-2">
+				<div class="container-fluid mt-1">
+					<div class="row">
+
+						<div class="col-lg-2 col-md-4 col-sm-5 mt-1">
+							<a href="https://cvit.iiit.ac.in" target="_blank">
+								<img src="{% static 'benchmark/images/logo_cvit.jpg' %}" alt="CVIT Logo" class="img-responsive left-logo"/>
+							</a>
+						</div>
+
+						<div class="col-lg-8 col-md-4 col-sm-2">
+							<p class="text-center pt-3 h4"><strong>Indian Language Benchmark Portal</strong></p>
+						</div>
+
+						<div class="col-lg-2 col-md-4 col-sm-5 text-right">
+							<a href="https://iiit.ac.in" target="_blank">
+								<img src="{% static 'benchmark/images/logo_iiit.png' %}" alt="IIIT Logo" class="img-responsive right-logo"/>
+							</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			{% block navigation_bar %}
+			<div class="header-wrapper" style="background-color: #023459; z-index:9;">
+				<nav class="navbar navbar-expand-lg navbar-dark">
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav w-100 d-flex justify-content-around">
+							<li class="nav-item active">
+								<a class="nav-link" href="{% url 'benchmark:index' %}">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'benchmark:resource' %}">Resource</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'benchmark:challenges' %}">Challenges</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'benchmark:task-list' %}">Task</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'benchmark:about' %}">About</a>
+							</li>
+							{% if user.is_authenticated %}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarLoginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Hi, {{ user.username }}
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarLoginDropdown">
+									<a class="dropdown-item" href="{% url 'benchmark:user_submission' 1 %}">Profile</a>
+									<a class="dropdown-item" href="{% url 'benchmark:logout' %}?next={{ request.path_info }}">Logout</a>
+								</div>
+							</li>
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'benchmark:login' %}?next={{ request.path_info }}">Login</a>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
+				{% block breadcrumb %}{% endblock %}
+			</div>
+			{% endblock %}
+		{% endblock %}</header>
+
+		<main>{% block main_content %}
+		{% endblock %}</main>
+
+		<footer>{% block footer_content %}
+			<div class="footer bg-dark h-100 text-light py-2">
+				<div class="container text-center">
+					<span class="glyphicon glyphicon-copyright-mark"></span> Copyright 2018. All rights reserved.
+				</div>
+			</div>
+		{% endblock %}</footer>
+	</body>
+</html>

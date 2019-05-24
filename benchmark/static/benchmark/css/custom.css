@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+/*------------------------------------------------------------------
+
+Template Name:      Benchmark Template
+Version:            1.0.0
+Created Date:       11/12/2018
+Author: 			Krishna Tulsyan
+License: 			Creative Commons Attribution 3.0 Unported
+License URL: 		http://creativecommons.org/licenses/by/3.0/
+
+------------------------------------------------------------------*/
+
+.space-xsmall { padding-top: 20px; padding-bottom: 20px; }
+.space-small { padding-top: 40px; padding-bottom: 40px; }
+.space-medium { padding-top: 80px; padding-bottom: 80px; }
+.space-large { padding-top: 120px; padding-bottom: 120px; }
+.space-ex-large { padding-top: 140px; padding-bottom: 140px; }

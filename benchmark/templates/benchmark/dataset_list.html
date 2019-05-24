@@ -1,0 +1,39 @@
+{% extends "benchmark/base.html" %}
+{% load static %}
+
+{% block main_content %}
+	<div class="space-xsmall">
+		<div class="container">
+			<table class="table table-stripped table-hover" id="dataset_table">
+				<thead class="thead-light">
+					<tr>
+						<th>Title</th>
+						<th class="text-center">Download Link</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if dataset_list %}
+						{% for dataset in dataset_list %}
+							<tr>
+								<td>
+									<a class="text-info" href="javascript:void(0);">
+										{{ dataset.name }} (version-{{ dataset.version }})
+									</a>
+									<div class="text-muted"><small>{{ dataset.description|linebreaks }}</small></div>
+								</td>
+								<td class="text-center">
+									<a href="{{ dataset.get_download_link }}">
+										<span class="fa fa-download fa-2x"></span>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="space-large"></div>
+	<div class="space-small"></div>
+{% endblock %}

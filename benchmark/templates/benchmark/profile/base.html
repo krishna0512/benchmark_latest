@@ -1,0 +1,90 @@
+{% extends "benchmark/base.html" %}
+{% load static %}
+
+{% block custom_css %}
+<style>
+	figure.figure:hover{
+		-ms-transform: scale(1.2);
+		-webkit-transform: scale(1.2);
+		transform: scale(1.2);
+	}
+	.sidenav{
+		width: 160px;
+		z-index: 1;
+		float: left;
+		margin-top: 15px;
+		margin-right: 5px;
+		background-color: #eee;
+		overflow-x: hidden;
+		padding-top: 20px;
+	}
+	.sidenav a{
+		padding: 6px 8px 6px 16px;
+		text-decoration: none;
+		color: #2196F3;
+		display: block;
+	}
+	.sidenav a:hover{
+		color: #064579;
+	}
+	.main{
+		margin-left: 160px;
+		padding: 0px 10px;
+	}
+	.circle{
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		font-size: 12px;
+		color: red;
+		background-color: black;
+		text-align: center;
+	}
+	.green-legend{
+		padding: 12px;
+		margin-right: 10px;
+		width: 12px;
+		float: left;
+		background-color: #c3e6cb;
+	}
+	.private-submission{
+		background-color: #c3e6cb;
+	}
+</style>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+	$(document).ready(function() {
+		$(".mysubmission_table tbody").on('click', 'td.details-control', function() {
+			console.log('hello');
+			var subid = $(this).closest('tr').attr('id');
+			$('#description_'+subid).slideToggle("slow");
+			var tr = $(this).closest('tr')
+			if ($(this).closest('tr').is('.shown')) {
+				$(this).closest('tr').removeClass('shown');
+			}
+			else {
+				$(this).closest('tr').addClass('shown');
+			}
+		});
+	});
+</script>
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+	<div class="sidenav">
+		<a href="{% url 'benchmark:user_submission' pk=request.user.id %}">My Submissions</a>
+		<a href="{% url 'benchmark:user_update' pk=request.user.id %}">Edit Profile</a>
+		<a href="{% url 'benchmark:demo_change_password' %}">Change Password</a>
+		<a href="{% url 'benchmark:demo_alert' %}">Alerts <span class="badge badge-primary py-1">4</span></a>
+		<a href="{% url 'benchmark:demo_stats' %}">Statistics</a>
+		<a href="#">Add new Proposal</a>
+	</div>
+
+	<div class="main">
+		{% block user_content %}{% endblock %}
+	</div>
+</div>
+{% endblock %}
