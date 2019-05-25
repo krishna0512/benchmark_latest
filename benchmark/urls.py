@@ -10,7 +10,7 @@ app_name = 'benchmark'
 urlpatterns = [
     path(
         '',
-        TemplateView.as_view(template_name='benchmark/index.html'),
+        views.IndexListView.as_view(),
         name='home'
     ),
 
@@ -45,7 +45,7 @@ urlpatterns = [
 
     path(
         'index/',
-        views.IndexTemplateView.as_view(),
+        views.IndexListView.as_view(),
         name='index'
     ),
 

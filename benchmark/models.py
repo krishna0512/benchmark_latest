@@ -33,6 +33,23 @@ class Profile(models.Model):
         verbose_name=_('Date of Birth')
     )
 
+class Announcement(models.Model):
+    """
+    This is model to hold all the announcement to be
+    displayed in the home page
+    """
+    title = models.CharField(max_length=500)
+    description = models.TextField(default='')
+    active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} ({})'.format(
+            self.title,
+            self.active
+        )
+
+
 class Resource(models.Model):
     title = models.CharField(max_length=200)
     authors = models.CharField(

@@ -1,5 +1,6 @@
 {% extends "benchmark/base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block custom_css %}
 <style>
@@ -80,41 +81,16 @@
 						Important Announcements
 					</div>
 					<div class="card-body pt-1 small" id="news">
-						<div class="card text-center mt-1">
-							<div class="card-body p-1">
-								This is a special announcement for the completion of the Indian language bechmark system website.
-							</div>
-							<div class="card-footer py-1">
-								5 Hours ago
-							</div>
-						</div>
-
+						{% for announcement in announcement_list %}
 						<div class="card text-center mt-2">
 							<div class="card-body p-1">
-								This is a special announcement for the completion of the Indian language bechmark system website.
+								{{ announcement.title }}
 							</div>
 							<div class="card-footer py-1">
-								5 Hours ago
+								{{ announcement.timestamp|naturaltime }}
 							</div>
 						</div>
-
-						<div class="card text-center mt-2">
-							<div class="card-body p-1">
-								This is a special announcement for the completion of the Indian language bechmark system website.
-							</div>
-							<div class="card-footer py-1">
-								5 Hours ago
-							</div>
-						</div>
-
-						<div class="card text-center mt-2">
-							<div class="card-body p-1">
-								This is a special announcement for the completion of the Indian language bechmark system website.
-							</div>
-							<div class="card-footer py-1">
-								5 Hours ago
-							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 			</center>

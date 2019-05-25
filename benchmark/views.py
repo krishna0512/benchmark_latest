@@ -12,11 +12,13 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 
 from benchmark.forms import UserRegistrationForm, SubmissionForm
-from benchmark.models import Dataset, Resource, Submission, Task, ApiSubmission
+from benchmark.models import Dataset, Resource, Submission, Task, ApiSubmission, Announcement
 
 # Create your views here.
 
-class IndexTemplateView(TemplateView):
+class IndexListView(ListView):
+    # only show active announcements
+    queryset = Announcement.objects.filter(active=True)
     template_name = 'benchmark/index.html'
     navigation = 'index'
 
