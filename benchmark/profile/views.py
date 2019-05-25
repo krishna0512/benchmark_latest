@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView, DeleteView
@@ -59,3 +60,14 @@ class UserUpdateProfile(UpdateView):
         """If form is valid, Display the success message."""
         messages.success(self.request, 'User updated successfully.')
         return super().form_valid(form)
+
+class PasswordChangeCustomView(PasswordChangeView):
+
+    def get_success_url(self):
+        messages.success(self.request, 'Your Password Changed successfully!')
+        return reverse(
+            'benchmark:user-submission',
+            kwargs={
+                'pk': self.request.user.id
+            }
+        )

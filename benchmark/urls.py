@@ -96,11 +96,11 @@ urlpatterns = [
         name='task-detail'
     ),
 
-    path(
-        'task/4/',
-        TemplateView.as_view(template_name='benchmark/task.html'),
-        name='task'
-    ),
+    # path(
+        # 'task/4/',
+        # TemplateView.as_view(template_name='benchmark/task.html'),
+        # name='task'
+    # ),
 
     path(
         'submission/<int:pk>/delete/',

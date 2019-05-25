@@ -8,12 +8,18 @@ urlpatterns = [
     path(
         '<int:pk>/submission/',
         views.UserSubmissionListView.as_view(),
-        name='user_submission'
+        name='user-submission'
     ),
 
     path(
         '<int:pk>/update/',
         views.UserUpdateProfile.as_view(),
-        name='user_update'
+        name='user-update'
+    ),
+
+    path(
+        'password_change/',
+        views.PasswordChangeCustomView.as_view(),
+        name='password-change'
     ),
 ]

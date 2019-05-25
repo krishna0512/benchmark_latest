@@ -75,9 +75,9 @@
 {% block main_content %}
 <div class="container-fluid">
 	<div class="sidenav">
-		<a href="{% url 'benchmark:user_submission' pk=request.user.id %}">My Submissions</a>
-		<a href="{% url 'benchmark:user_update' pk=request.user.id %}">Edit Profile</a>
-		<a href="{% url 'benchmark:demo_change_password' %}">Change Password</a>
+		<a href="{% url 'benchmark:user-submission' pk=request.user.id %}">My Submissions</a>
+		<a href="{% url 'benchmark:user-update' pk=request.user.id %}">Edit Profile</a>
+		<a href="{% url 'benchmark:password-change' %}">Change Password</a>
 		<a href="{% url 'benchmark:demo_alert' %}">Alerts <span class="badge badge-primary py-1">4</span></a>
 		<a href="{% url 'benchmark:demo_stats' %}">Statistics</a>
 		<a href="#">Add new Proposal</a>
