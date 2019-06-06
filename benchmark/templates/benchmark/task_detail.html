@@ -127,7 +127,6 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th>Rank</th>
 								<th>Method Title</th>
 								<th>Author(s)</th>
 								{% for ename in task.get_evaluation_heading %}
@@ -139,7 +138,6 @@
 							{% for sub in submission_list %}
 							<tr id="submission_{{ sub.id }}">
 								<td class="details-control"></td>
-								<td>{{ sub.rank }}</td>
 								<td>{{ sub.name }}</td>
 								<td>{{ sub.authors }}</td>
 								{% for val in sub.get_evaluation_value %}

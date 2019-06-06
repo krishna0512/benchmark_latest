@@ -39,9 +39,12 @@ class Announcement(models.Model):
     displayed in the home page
     """
     title = models.CharField(max_length=500)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
 
     def __str__(self):
         return '{} ({})'.format(
