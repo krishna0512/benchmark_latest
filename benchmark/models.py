@@ -241,7 +241,7 @@ class Dataset(models.Model):
             kwargs={
                 'pk': self.task.id,
                 'dataset_id': self.id,
-                'online': 0
+                'online': False
             }
         )
 
@@ -254,7 +254,7 @@ class Dataset(models.Model):
             kwargs={
                 'pk': self.task.id,
                 'dataset_id': self.id,
-                'online': 1
+                'online': True
             }
         )
 

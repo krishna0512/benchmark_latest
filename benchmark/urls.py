@@ -86,21 +86,21 @@ urlpatterns = [
         name='task-list'
     ),
 
-    # online is for checking weather the user is viewing online
-    # or offline submissions in task
-    # 0  --  for offline submission
-    # 1  --  for online submission
+    # online bool variable is for checking weather the user is viewing
+    # online or offline submissions in task
     path(
-        'task/<int:pk>/<int:dataset_id>/<int:online>/',
+        'task/<int:pk>/<int:dataset_id>/offline/',
         views.TaskDetailView.as_view(),
+        {'online': False},
         name='task-detail'
     ),
 
-    # path(
-        # 'task/4/',
-        # TemplateView.as_view(template_name='benchmark/task.html'),
-        # name='task'
-    # ),
+    path(
+        'task/<int:pk>/<int:dataset_id>/online/',
+        views.TaskDetailView.as_view(),
+        {'online': True},
+        name='task-detail'
+    ),
 
     path(
         'submission/<int:pk>/delete/',

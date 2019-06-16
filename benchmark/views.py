@@ -85,13 +85,6 @@ class TaskDetailView(FormMixin, DetailView):
 
     def get_success_url(self):
         return self.get_object().get_absolute_url()
-        # return reverse(
-            # 'benchmark:task-detail',
-            # kwargs={
-                # 'pk': self.object.id,
-                # 'dataset_id': self.kwargs['dataset_id']
-            # }
-        # )
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailView, self).get_context_data(**kwargs)
@@ -100,6 +93,10 @@ class TaskDetailView(FormMixin, DetailView):
         context['selected_dataset'] = Dataset.objects.get(
             id=self.kwargs['dataset_id']
         )
+        # TODO: This submission list if incorrect.
+        # currently only the submissions that are public will be
+        # displayed, instead if the user is logged in then
+        # that user's private submissions should also be displayed
         submission_list = Submission.objects.filter(
             dataset__id=self.kwargs['dataset_id']
         ).filter(
