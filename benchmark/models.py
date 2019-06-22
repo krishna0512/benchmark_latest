@@ -98,7 +98,8 @@ class Task(models.Model):
     name = models.CharField(max_length=200)
     nickname = models.CharField(
         max_length=30,
-        default=''
+        default='',
+        help_text=_('Field for storing the slug name for Task.')
     )
     display_image_1 = models.ImageField(
         upload_to=task_directory_path,

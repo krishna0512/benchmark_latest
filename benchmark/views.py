@@ -110,6 +110,12 @@ class TaskDetailView(FormMixin, DetailView):
             context['submission_list'] = submission_list.filter(
                 online=False
             )
+        # changing the dataset queryset in form
+        # so that it only allows the dataset for current task to be shown
+        task_id = self.get_object().id
+        context['form'].fields['dataset'].queryset = Dataset.objects.filter(
+            task__id=task_id
+        )
         return context
 
     def post(self, request, *args, **kwargs):
