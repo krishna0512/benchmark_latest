@@ -130,9 +130,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/benchmark/login/'
-LOGIN_REDIRECT_URL = '/benchmark/'
-LOGOUT_REDIRECT_URL = '/benchmark/'
+LOGIN_URL = 'benchmark:login'
+LOGIN_REDIRECT_URL = 'benchmark:index'
+LOGOUT_REDIRECT_URL = 'benchmark:index'
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {

@@ -33,6 +33,17 @@ class Profile(models.Model):
         verbose_name=_('Date of Birth')
     )
 
+    def get_profile_url(self):
+        """
+        returns the url for user submission page.
+        """
+        return reverse(
+            'benchmark:user-submission',
+            kwargs={
+                'pk': self.user.id
+            }
+        )
+
 class Announcement(models.Model):
     """
     This is model to hold all the announcement to be

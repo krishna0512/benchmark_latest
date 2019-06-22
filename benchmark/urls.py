@@ -38,12 +38,6 @@ urlpatterns = [
     ),
 
     path(
-        'demo_change_password/',
-        TemplateView.as_view(template_name='benchmark/demo_change_password.html'),
-        name='demo_change_password'
-    ),
-
-    path(
         'index/',
         views.IndexListView.as_view(),
         name='index'
@@ -113,8 +107,8 @@ urlpatterns = [
     # path('leaderboard/upload_submission/<int:tc_id>', views.uploadSubmission, name='uploadSubmission'),
     path('task_controller/<int:task_id>', views.task_controller, name='task_controller'),
 
-    path('delete_submission', views.delete_submission, name='delete_submission'),
+    # path('delete_submission', views.delete_submission, name='delete_submission'),
 
-    path('ajax/leaderboard_data/<int:tc_id>', views.getLeaderboardTableData, name='getLeaderboardTableData'),
-    path('ajax/my_methods_data/<int:tc_id>', views.getmyMethodsTableData, name='getmyMethodsTableData'),
+    # path('ajax/leaderboard_data/<int:tc_id>', views.getLeaderboardTableData, name='getLeaderboardTableData'),
+    # path('ajax/my_methods_data/<int:tc_id>', views.getmyMethodsTableData, name='getmyMethodsTableData'),
 ]

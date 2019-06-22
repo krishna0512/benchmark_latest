@@ -242,55 +242,60 @@ def task_controller(request, task_id):
                 # # messages.error(request, 'Failed to save Submission form')
     # return redirect('benchmark:leaderboard', pk=tc_id)
 
-def delete_submission(request):
-    """
-    Deletes the given submission from the id and redirects the
-    user to the leaderboard page.
+# def delete_submission(request):
+    # """
+    # Deletes the given submission from the id and redirects the
+    # user to the leaderboard page.
 
-    TODO: redirect the user to the mymethods page instead of the leaderboard page.
-    TODO: Make this method more secure
-          Right now it is highly inscure because any person can access the url delete_submission
-          and arbitrary sub_id to delete the submission
-          To make it more secure check if user is logged in and user can delete only his sub.
-    """
-    sid = request.GET.get('sub_id', None)
-    try:
-        s = Submission.objects.get(pk=sid)
-        tid = s.task_category.id
-        s.delete()
-    except:
-        messages.warning(request, 'Invalid Submission ID to delete_submission')
-        return redirect('benchmark:index')
-    messages.success(request, '<Submission: {}> Deleted!'.format(sid))
-    return redirect('benchmark:leaderboard', pk=tid)
+    # TODO: redirect the user to the mymethods page instead of the leaderboard page.
+    # TODO: Make this method more secure
+          # Right now it is highly inscure because any person can access the url delete_submission
+          # and arbitrary sub_id to delete the submission
+          # To make it more secure check if user is logged in and user can delete only his sub.
+    # """
+    # sid = request.GET.get('sub_id', None)
+    # try:
+        # s = Submission.objects.get(pk=sid)
+        # tid = s.task_category.id
+        # s.delete()
+    # except:
+        # messages.warning(request, 'Invalid Submission ID to delete_submission')
+        # return redirect('benchmark:index')
+    # messages.success(request, '<Submission: {}> Deleted!'.format(sid))
+    # return redirect('benchmark:leaderboard', pk=tid)
 
-def getLeaderboardTableData(request, tc_id):
-    """Ajax view that returns the leaderboard table
-    """
-    data = []
-    s = Submission.objects.filter(task_category__id=tc_id)
-    for i in s:
-        # functionlity for is_result_public
-        if i.is_result_public or i.user == request.user:
-            data.append(i.getJSONDict())
-        else:
-            pass
-            # this submission should not be displayed to leaderboard
-    return JsonResponse({'data':data})
+# def getLeaderboardTableData(request, tc_id):
+    # """Ajax view that returns the leaderboard table
+    # """
+    # data = []
+    # s = Submission.objects.filter(task_category__id=tc_id)
+    # for i in s:
+        # # functionlity for is_result_public
+        # if i.is_result_public or i.user == request.user:
+            # data.append(i.getJSONDict())
+        # else:
+            # pass
+            # # this submission should not be displayed to leaderboard
+    # return JsonResponse({'data':data})
 
-def getmyMethodsTableData(request, tc_id):
-    """Ajax view that returns mymethods table for logged in users
-    """
-    data = []
-    s = Submission.objects.filter(task_category__id=tc_id).filter(user=request.user)
-    for i in s:
-        data.append(i.getJSONDict())
-    return JsonResponse({'data':data})
+# def getmyMethodsTableData(request, tc_id):
+    # """Ajax view that returns mymethods table for logged in users
+    # """
+    # data = []
+    # s = Submission.objects.filter(task_category__id=tc_id).filter(user=request.user)
+    # for i in s:
+        # data.append(i.getJSONDict())
+    # return JsonResponse({'data':data})
 
 class SubmissionDeleteView(DeleteView, LoginRequiredMixin):
     model = Submission
 
     def get(self, *args, **kwargs):
+        """
+        This line is for avoiding the django redirect to the
+        delete confirmation page as confirmation is taken care of
+        in the same page by the means of a popup.
+        """
         return self.post(*args, **kwargs)
 
     def get_success_url(self):

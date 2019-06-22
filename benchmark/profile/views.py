@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse
@@ -7,13 +8,14 @@ from django.views.generic.edit import UpdateView, DeleteView
 
 from benchmark.models import Submission, Task, Dataset
 
-class UserSubmissionListView(ListView):
+class UserSubmissionListView(LoginRequiredMixin, ListView):
     """Generic listbased view for user submissions.
     """
     
     model = Submission
     template_name = 'benchmark/profile/user_submission.html'
     content_object_name = 'submission_list'
+    permission_denied_message = 'Please login to access submission profile page'
 
     def get_queryset(self):
         """returns a queryset that contains only the submissions
@@ -33,9 +35,17 @@ class UserSubmissionListView(ListView):
         ).distinct()
         return context
 
+    def get_login_url(self):
+        """
+        send a message if loginrequiredmixin calls
+        get_login_url function signifying
+        """
+        messages.warning(self.request, self.permission_denied_message)
+        return super(UserSubmissionListView, self).get_login_url()
+
 class UserUpdateProfile(UpdateView):
     """
-    Final Template name = user_udpate_form.html
+    Final Template name = user_update_form.html
     """
     
     model = User
@@ -65,9 +75,4 @@ class PasswordChangeCustomView(PasswordChangeView):
 
     def get_success_url(self):
         messages.success(self.request, 'Your Password Changed successfully!')
-        return reverse(
-            'benchmark:user-submission',
-            kwargs={
-                'pk': self.request.user.id
-            }
-        )
+        return self.request.user.profile.get_profile_url()
