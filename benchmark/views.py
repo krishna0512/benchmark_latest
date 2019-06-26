@@ -88,21 +88,30 @@ class TaskDetailView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailView, self).get_context_data(**kwargs)
-        context['form'] = SubmissionForm()
-        context['online'] = self.kwargs['online']
-        context['selected_dataset'] = Dataset.objects.get(
-            id=self.kwargs['dataset_id']
-        )
-        # TODO: This submission list if incorrect.
-        # currently only the submissions that are public will be
-        # displayed, instead if the user is logged in then
-        # that user's private submissions should also be displayed
+        task_id = self.get_object().id
+        dataset_id = self.kwargs['dataset_id']
+        online = self.kwargs['online']
+
         submission_list = Submission.objects.filter(
-            dataset__id=self.kwargs['dataset_id']
+            dataset__id=dataset_id
         ).filter(
             public=True
         )
-        if self.kwargs['online']:
+        # if the user is logged in then this condition also adds
+        # the private submissions of the user to submission_list
+        if self.request.user.is_authenticated:
+            if Submission.objects.filter(user=self.request.user).exists():
+                private_submission_list = Submission.objects.filter(
+                    dataset__id=dataset_id
+                ).filter(
+                    user=self.request.user
+                ).filter(
+                    public=False
+                )
+                # union method of queryset not working giving the error
+                # order_by not allowed in subqueries of compound statements
+                submission_list = submission_list | private_submission_list
+        if online:
             context['submission_list'] = submission_list.filter(
                 online=True
             )
@@ -110,9 +119,12 @@ class TaskDetailView(FormMixin, DetailView):
             context['submission_list'] = submission_list.filter(
                 online=False
             )
+        context['online'] = online
+        context['selected_dataset'] = Dataset.objects.get(
+            id=dataset_id
+        )
         # changing the dataset queryset in form
         # so that it only allows the dataset for current task to be shown
-        task_id = self.get_object().id
         context['form'].fields['dataset'].queryset = Dataset.objects.filter(
             task__id=task_id
         )

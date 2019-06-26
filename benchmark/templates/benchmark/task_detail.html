@@ -105,14 +105,14 @@
 						</thead>
 						<tbody>
 							{% for dataset in task.datasets.all %}
-							{% if dataset.id == selected_dataset.id %}
-							<tr class="table-active">
-							{% else %}
-							<tr>
-							{% endif %}
+							<tr {% if dataset.id == selected_dataset.id %}class="table-active"{% endif %}>
 								<td>{{ dataset.version }}</td>
 								<td>
+									{% if online %}
+									<a href="{{ dataset.get_absolute_online_url }}">{{ dataset.name }}</a>
+									{% else %}
 									<a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a>
+									{% endif %}
 								</td>
 								<td class="text-right text-small">
 									<a href="#" data-toggle="modal" data-target="#dataset{{ dataset.id }}modal">more</a>
