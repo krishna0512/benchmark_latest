@@ -21,7 +21,6 @@
 			{% for ename in task.get_evaluation_heading %}
 			<th>{{ ename }}</th>
 			{% endfor %}
-			<th>Rank</th>
 		</thead>
 		<tbody>
 			{% for submission in submission_list %}
@@ -35,7 +34,6 @@
 				{% for val in submission.get_evaluation_value %}
 				<td>{{ val }}</td>
 				{% endfor %}
-				<td>{{ submission.rank }}</td>
 			</tr>
 			<tr>
 				<td colspan="42" class="p-0" border="0">

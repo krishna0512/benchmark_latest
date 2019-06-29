@@ -196,6 +196,23 @@ class Task(models.Model):
             ret = ['EM']
         return ret
 
+    def cleanup(self):
+        """
+        Function to clean and delete all the related uploaded
+        files of the Task instance.
+        False is so that after deleting the file model is NOT saved.
+        """
+        if self.display_image_1:
+            self.display_image_1.delete(False)
+        if self.display_image_2:
+            self.display_image_2.delete(False)
+        if self.sample_submission:
+            self.sample_submission.delete(False)
+        if self.sample_online_submission:
+            self.sample_online_submission.delete(False)
+        if self.em_code:
+            self.em_code.delete(False)
+
     def __repr__(self):
         return '<Task: {} ({})>'.format(self.name, self.nickname)
 
@@ -337,7 +354,7 @@ class Submission(models.Model):
     # with a particular rank.
     # generally admin sets the rank for a particular submission
     # or alternatively rank can auto generated using signals and some logic.
-    rank = models.IntegerField(default=0)
+    # rank = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
     description = models.TextField(default='')
     # comma seperated list of authors
@@ -412,59 +429,15 @@ class Submission(models.Model):
             )
         else:
             result = mod.evaluate('','')
-        print(result)
         # saving the result obtained from the em_code file to
         # the EvaluationResult Model.
         for key in result:
             EvaluationResult.objects.create(
                 submission=self,
                 name=key,
-                value=float(result[key])
+                value=round(float(result[key]),1)
             )
 
-
-    # def evaluate_measure(self):
-        # """
-        # Evaluates the evaluation_measure_1 and stores in the same variable
-        # Inputs the result_file from the uploadsubmission view
-
-        # Note: Assumed that self.save() has already been called.
-        # returns False if code cannot find the corresponding script.
-        # returns True iff calculated evaluation successfully and updated the submission.
-        # """
-        # user_result = []
-        # with ZipFile(self.result.path) as user_zip:
-            # names = user_zip.namelist()
-            # for name in names:
-                # with user_zip.open(name) as f:
-                    # user_result += f.read().decode('utf-8').strip().split('\n')
-        # user_result = [i.strip() for i in user_result]
-        # gt_result = []
-        # with ZipFile(self.dataset.gtfile.path) as gt_zip:
-            # names = gt_zip.namelist()
-            # for name in names:
-                # with gt_zip.open(name) as f:
-                    # gt_result += f.read().decode('utf-8').strip().split('\n')
-        # gt_result = [i.strip() for i in gt_result]
-        # tp = [i for i in user_result if i in gt_result]
-        # tp = len(tp)
-        # fp = len(user_result)-tp
-        # fn = len(gt_result)-len(user_result)
-        # recall = tp/(tp+fn)
-        # precision = tp/(tp+fp)
-        # ap = 1
-        # if precision == 1:
-            # ap = recall
-        # else:
-            # diff = 1-precision
-            # ap = recall-random.uniform(0,diff)
-        # self.evaluation_measure_4 = '{0:.2f}'.format(precision*100)
-        # self.evaluation_measure_3 = '{0:.2f}'.format(recall*100)
-        # hmean = 2*recall*precision/(recall+precision)
-        # self.evaluation_measure_2 = '{0:.2f}'.format(hmean*100)
-        # self.evaluation_measure_1 = '{0:.2f}'.format(ap*100)
-        # self.save()
-        # return True
 
     def get_download_link(self):
         return self.result.url
@@ -524,16 +497,17 @@ def delete_task_files(sender, instance, **kwargs):
     is deleted
     These files include the display images, and the code for EM.
     """
-    if instance.display_image_1:
-        instance.display_image_1.delete(False)
-    if instance.display_image_2:
-        instance.display_image_2.delete(False)
-    if instance.sample_submission:
-        instance.sample_submission.delete(False)
-    if instance.sample_online_submission:
-        instance.sample_online_submission.delete(False)
-    if instance.em_code:
-        instance.em_code.delete(False)
+    instance.cleanup()
+    # if instance.display_image_1:
+        # instance.display_image_1.delete(False)
+    # if instance.display_image_2:
+        # instance.display_image_2.delete(False)
+    # if instance.sample_submission:
+        # instance.sample_submission.delete(False)
+    # if instance.sample_online_submission:
+        # instance.sample_online_submission.delete(False)
+    # if instance.em_code:
+        # instance.em_code.delete(False)
 
 
 from benchmark.signals import *
