@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from benchmark.models import Submission
 
+# add the label suffix for required labels
 class SubmissionForm(forms.ModelForm):
     class Meta:
         model = Submission

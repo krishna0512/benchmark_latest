@@ -1,7 +1,7 @@
 from zipfile import ZipFile
 
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save, pre_delete, post_delete
 from django.dispatch import receiver
 
 from benchmark.models import Profile, Dataset
@@ -35,13 +35,14 @@ def update_nimages_field(sender, instance, **kwargs):
             instance.nimages = nimg
             instance.save()
 
-@receiver(pre_delete, sender=Dataset)
+@receiver(post_delete, sender=Dataset)
 def delete_dataset_zipfile(sender, instance, **kwargs):
     """
     Deleting the dataset zip file and groud truth
     from the filesystem before successfully deleting model instance.
     """
-    if instance.zipfile:
-        instance.zipfile.delete(False)
-    if instance.gtfile:
-        instance.gtfile.delete(False)
+    instance.cleanup()
+    # if instance.zipfile:
+        # instance.zipfile.delete(False)
+    # if instance.gtfile:
+        # instance.gtfile.delete(False)

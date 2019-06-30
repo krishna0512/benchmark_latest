@@ -177,6 +177,26 @@ class Task(models.Model):
             }
         )
 
+    def _get_evaluation_heading_from_em_code(self):
+        """
+        Returns a list of string that contains the
+        heading for evaluation results for this task.
+        this is obtained using the em_code path.
+        """
+        # Loading the evaluate function from the em_code file.
+        spec = importlib.util.spec_from_file_location(
+            'evaluate',
+            self.em_code.path
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        try:
+            ret = mod.evaluate()
+        except:
+            return None
+        ret = [i for i in ret]
+        return ret
+
     def get_evaluation_heading(self):
         """
         Returns a list of strings that contain the
@@ -193,7 +213,7 @@ class Task(models.Model):
         if s.exists():
             ret = [i.name for i in s.first().evaluation_results.all()]
         else:
-            ret = ['EM']
+            ret = self._get_evaluation_heading_from_em_code() or ['EM']
         return ret
 
     def cleanup(self):
@@ -260,6 +280,17 @@ class Dataset(models.Model):
         verbose_name=_('Groudtruth File (.zip)'),
         help_text=_('Ground truth text files in zip')
     )
+
+    def cleanup(self):
+        """
+        Function to clean and delete all the related uploaded
+        files of the Dataset instance.
+        False is so that after deleting the file model is NOT saved.
+        """
+        if self.zipfile:
+            self.zipfile.delete(False)
+        if self.gtfile:
+            self.gtfile.delete(False)
 
     def get_absolute_url(self):
         """
@@ -342,47 +373,65 @@ class Submission(models.Model):
         related_name='submissions',
         help_text=_('Dataset against which this submission is made.')
     )
+    # TODO:
+    # Verify what needs to be done if user that uploaded
+    # the submission has his/her account deleted.
+    # Current behaviour is that all the submissions by that user
+    # will also be deleted and there is no archive remaining.
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='submissions',
-        verbose_name=_('Submitted By')
+        verbose_name=_('Method submitted by')
     )
-    # this stores the rank of the submission in particular task.
-    # generally (task, rank) tuple is unique for all submissions
-    # This is because for each task there can only be one submission
-    # with a particular rank.
-    # generally admin sets the rank for a particular submission
-    # or alternatively rank can auto generated using signals and some logic.
-    # rank = models.IntegerField(default=0)
-    name = models.CharField(max_length=200)
-    description = models.TextField(default='')
+    name = models.CharField(
+        max_length=200,
+        help_text=_('Short name of the method used')
+    )
+    description = models.TextField(
+        default='',
+        help_text=_('Brief description of the method employed')
+    )
     # comma seperated list of authors
-    authors = models.CharField(max_length=500)
+    authors = models.CharField(
+        max_length=500,
+        help_text=_('Comma seperated list of authors of this method')
+    )
     code_link = models.URLField(
         max_length=100,
         blank=True,
-        default=''
+        default='',
+        verbose_name=_('Link to Code'),
+        help_text=_('Please provide the full url for link')
     )
     paper_link = models.URLField(
         max_length=100,
         blank=True,
-        default=''
+        default='',
+        verbose_name=_('Link to Paper'),
+        help_text=_(
+            'URL to published paper referenced in this method.\
+            <br>(Please provide the link to the page\
+            instead of PDF link)'
+            # 'URL to published paper referenced\
+            # in this method (Please provide the link to\
+            # the page instead of PDF)'
+        )
     )
     result = models.FileField(
         upload_to=submission_directory_path,
-        help_text=_('User Uploaded result (ZIP file)'),
+        help_text=_('Uplaod a single ZIP file while adhering to the format specified'),
         null=True
     )
     public = models.BooleanField(
         default=True,
         verbose_name=_('Is result public?'),
-        help_text=_('specifies if the submission is displayed in public leaderboard')
+        help_text=_('Check if the submission is to be displayed in public leaderboard')
     )
     online = models.BooleanField(
         default=False,
         verbose_name=_('Is this online submission?'),
-        help_text=_('Tick if the submission is listed under online submission')
+        help_text=_('Check if the submission is listed under online submission')
     )
     creation_timestamp = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -397,6 +446,15 @@ class Submission(models.Model):
 
     def __str__(self):
         return self.name
+
+    def cleanup(self):
+        """
+        Function to clean and delete all the related uploaded
+        files of the Submission instance.
+        False is so that after deleting the file model is NOT saved.
+        """
+        if self.result:
+            self.result.delete(False)
 
     def get_evaluation_value(self):
         """
@@ -473,14 +531,6 @@ class EvaluationResult(models.Model):
             self.value
         )
 
-@receiver(post_delete, sender=Submission)
-def delete_submission_files(sender, instance, **kwargs):
-    """
-    Deleting the zip file from the filesystem after successfully deleting model instance
-    """
-    if instance.result:
-        instance.result.delete(False)
-
 @receiver(post_save, sender=Submission)
 def get_evaluation_results(sender, instance, created, **kwargs):
     """
@@ -490,6 +540,15 @@ def get_evaluation_results(sender, instance, created, **kwargs):
     if created:
         instance.evaluate_submission()
 
+@receiver(post_delete, sender=Submission)
+def delete_submission_files(sender, instance, **kwargs):
+    """
+    Deleting the zip file from the filesystem after successfully deleting model instance
+    """
+    instance.cleanup()
+    # if instance.result:
+        # instance.result.delete(False)
+
 @receiver(post_delete, sender=Task)
 def delete_task_files(sender, instance, **kwargs):
     """
@@ -498,16 +557,6 @@ def delete_task_files(sender, instance, **kwargs):
     These files include the display images, and the code for EM.
     """
     instance.cleanup()
-    # if instance.display_image_1:
-        # instance.display_image_1.delete(False)
-    # if instance.display_image_2:
-        # instance.display_image_2.delete(False)
-    # if instance.sample_submission:
-        # instance.sample_submission.delete(False)
-    # if instance.sample_online_submission:
-        # instance.sample_online_submission.delete(False)
-    # if instance.em_code:
-        # instance.em_code.delete(False)
 
 
 from benchmark.signals import *
