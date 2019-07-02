@@ -12,46 +12,68 @@
 		padding: 0;
 	}
 	.errorlist li {
-		background-color: red;
-		color: white;
 		display: block;
-		font-size: 1.2em;
-		margin: 0 0 3px;
-		padding: 4px 5px;
 	}
 </style>
 {% endblock %}
 
 {% block main_content %}
-<div class="space-small">
-	<div class="container">
-		<div class="row">
+<div class="container my-4 pt-4">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col">
+			<div class="card">
+				<div class="card-header text-center h3">
+					Member Login
+				</div>
+				<div class="card-body">
+					<form method="POST">
+						{% csrf_token %}
+						<small class="form-text text-danger mb-3">
+							{{ form.non_field_errors }}
+						</small>
+						<div class="form-row">
+							<label class="sr-only" id="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+							<div class="input-group mb-3">
+								{% comment %}
+								TODO:
+								add a small fa-user icon at the start/prefix of the input
+								just like the image results shown for "bootstrap login forms"
+								{% endcomment %}
+								{{ form.username|add_attr:"form-control, placeholder: Username" }}
+								{% if form.username.errors %}
+								<small class="form-text text-danger">
+									{{ form.username.errors }}
+								</small>
+								{% endif %}
+							</div>
+						</div>
 
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				{% if form.errors %}
-				<ul class="errorlist">
-					<li>Incorrect Username/Password combination</li>
-				</ul>
-				{% endif %}
-				<form method="POST">
-					{% csrf_token %}
-					<div class="form-group">
-						{{ form.username.label_tag }}
-						{{ form.username|add_attr:"form-control, placeholder: Enter Username" }}
-					</div>
-
-					<div class="form-group">
-						{{ form.password.label_tag }}
-						{{ form.password|add_attr:"form-control, placeholder: Enter Password" }}
-					</div>
-					
-					<button type="submit" class="btn btn-primary" id="submit">Login</button>
-				</form>
-				<p></p>
-				<p>New User? <u><a href="{% url 'benchmark:register' %}">Register</a></u> here</p>
+						<div class="form-row">
+							<label class="sr-only" id="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+							<div class="input-group mb-3">
+								{{ form.password|add_attr:"form-control, placeholder: Password" }}
+								{% if form.password.errors %}
+								<small class="form-text text-danger">
+									{{ form.password.errors }}
+								</small>
+								{% endif %}
+							</div>
+						</div>
+						
+						<div class="form-row">
+							<button type="submit" class="btn btn-success mb-3 w-100" id="submit">Login</button>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer text-center">
+					<a href="{% url 'benchmark:register' %}">Create an Account</a>
+				</div>
 			</div>
-
 		</div>
+		<div class="col"></div>
 	</div>
 </div>
+<div class="space-small"></div>
+<div class="space-small"></div>
 {% endblock %}

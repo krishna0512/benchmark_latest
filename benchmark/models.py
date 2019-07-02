@@ -63,6 +63,25 @@ class Announcement(models.Model):
             self.active
         )
 
+class Alert(models.Model):
+    """
+    This is a model for storing user alerts.
+    """
+    title = models.CharField(max_length=300)
+    message = models.TextField(default='')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='alerts'
+    )
+
+    def __repr__(self):
+        return '<Alert: {}>'.format(self.title)
+
+    def __str__(self):
+        return '{} ({})'.format(self.title, self.user.username)
+
 
 class Resource(models.Model):
     title = models.CharField(max_length=200)
