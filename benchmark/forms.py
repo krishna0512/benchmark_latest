@@ -18,6 +18,16 @@ class SubmissionForm(forms.ModelForm):
             'public'
         ]
 
+class UserProfileForm(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        max_length=32
+    )
+    username = forms.CharField(
+        required=True,
+        max_length=32
+    )
+
 class UserRegistrationForm(forms.Form):
     required_css_class = 'form-group'
     attribute = {
