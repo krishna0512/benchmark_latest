@@ -38,7 +38,8 @@ class UserSubmissionListView(LoginRequiredMixin, ListView):
     def get_login_url(self):
         """
         send a message if loginrequiredmixin calls
-        get_login_url function signifying
+        get_login_url function signifying that Anon user tried
+        to access this view.
         """
         messages.warning(self.request, self.permission_denied_message)
         return super(UserSubmissionListView, self).get_login_url()
@@ -55,6 +56,13 @@ class UserUpdateProfile(UpdateView):
         'last_name'
     ]
     template_name = 'benchmark/profile/user_update.html'
+
+    def get_object(self):
+        """
+        This is to compensate for the lack of pk or slug field
+        in the url for this view.
+        """
+        return self.request.user
 
     def get_success_url(self):
         """

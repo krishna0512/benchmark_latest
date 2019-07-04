@@ -6,13 +6,13 @@ from benchmark.profile import views
 
 urlpatterns = [
     path(
-        '<int:pk>/submission/',
+        'submissions/',
         views.UserSubmissionListView.as_view(),
-        name='user-submission'
+        name='user-submissions'
     ),
 
     path(
-        '<int:pk>/update/',
+        'update/',
         views.UserUpdateProfile.as_view(),
         name='user-update'
     ),

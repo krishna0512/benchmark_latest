@@ -135,7 +135,7 @@
 									Hi, {{ user.first_name }}
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarLoginDropdown">
-									<a class="dropdown-item" href="{% url 'benchmark:user-submission' request.user.id %}">Profile</a>
+									<a class="dropdown-item" href="{% url 'benchmark:user-submissions' %}">Profile</a>
 									{% if user.is_superuser %}
 									<a class="dropdown-item" href="{% url 'admin:index' %}">Admin Site</a>
 									{% endif %}
