@@ -10,18 +10,13 @@
 		padding: 0;
 	}
 	.errorlist li {
-		background-color: red;
-		color: white;
 		display: block;
-		font-size: 1.2em;
-		margin: 0 0 3px;
-		padding: 4px 5px;
 	}
 </style>
 {% endblock %}
 
 {% block main_content %}
-<div class="container my-4 pt-4">
+<div class="container my-4 pt-1">
 	<div class="row">
 		<div class="col"></div>
 		<div class="col">
@@ -36,23 +31,31 @@
 							{{ form.non_field_errors }}
 						</small>
 						{% for field in form %}
-						<div class="form-row">
+						<div class="form-row mb-3">
 							<label class="sr-only" for="{{ field.id_for_label }}">{{ field.label }}</label>
-							<div class="input-group mb-3">
+
+							{% if field.errors %}
+							<small class="form-text text-danger">
+								{{ field.errors }}
+							</small>
+
+							<div class="input-group border border-danger rounded">
+							{% else %}
+							<div class="input-group">
+							{% endif %}
+
 								{{ field|add_attr:"form-control" }}
-								{% if field.help_text %}
-								<small class="form-text text-muted">
-									{{ field.help_text }}
-								</small>
-								{% endif %}
-								<small class="form-text text-danger">
-									{{ field.errors }}
-								</small>
 							</div>
+
+							{% if field.help_text %}
+							<small class="form-text text-muted">
+								{{ field.help_text }}
+							</small>
+							{% endif %}
 						</div>
 						{% endfor %}
 						<div class="form-row">
-							<button type="submit" class="btn btn-success mb-3 w-100" id="submit">Register</button>
+							<button type="submit" class="btn btn-success w-100" id="submit">Register</button>
 						</div>
 					</form>
 				</div>

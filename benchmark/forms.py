@@ -32,22 +32,23 @@ class UserRegistrationForm(forms.Form):
     required_css_class = 'form-group'
     attribute = {
         'class': 'form-control',
-        'placeholder': 'Enter Email'}
+        'placeholder': 'Email'}
     email = forms.EmailField(
         required = True,
         max_length = 32,
         widget = forms.TextInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter Username'
+    attribute['placeholder'] = 'Username'
     username = forms.CharField(
         required = True,
         max_length = 32,
         widget = forms.TextInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter Password'
+    attribute['placeholder'] = 'Password'
     password = forms.CharField(
         required = True,
         max_length = 32,
+        help_text = 'Password should be atleast 6 characters',
         widget = forms.PasswordInput(attrs=attribute)
     )
     attribute['placeholder'] = 'Confirm your password'
@@ -56,25 +57,25 @@ class UserRegistrationForm(forms.Form):
         max_length = 32,
         widget = forms.PasswordInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter First name'
+    attribute['placeholder'] = 'First name'
     first_name = forms.CharField(
         required = True,
         max_length = 32,
         widget = forms.TextInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter Last name'
+    attribute['placeholder'] = 'Last name'
     last_name = forms.CharField(
         required = True,
         max_length = 32,
         widget = forms.TextInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter Affiliation Name (if applicable)'
+    attribute['placeholder'] = 'Affiliation Name (if applicable)'
     affiliation_name = forms.CharField(
         required = False,
         max_length = 64,
         widget = forms.TextInput(attrs=attribute)
     )
-    attribute['placeholder'] = 'Enter the DOB'
+    attribute['placeholder'] = 'Date of Birth (optional)'
     attribute['class'] = 'form-control datepicker'
     dob = forms.DateField(
         required = False,
