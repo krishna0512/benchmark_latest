@@ -22,4 +22,16 @@ urlpatterns = [
         views.PasswordChangeCustomView.as_view(),
         name='password-change'
     ),
+
+    path(
+        'alerts/',
+        views.AlertListView.as_view(),
+        name='alerts'
+    ),
+
+    path(
+        'alerts/delete/',
+        views.delete_alerts,
+        name='delete-alerts'
+    ),
 ]

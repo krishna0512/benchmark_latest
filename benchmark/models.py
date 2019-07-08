@@ -66,21 +66,29 @@ class Announcement(models.Model):
 class Alert(models.Model):
     """
     This is a model for storing user alerts.
+    
+    @_pre_active: This arg is internal arg to work that meachnism
+    that if the user visits the alert page then all the alerts
+    are rendered inactive.
     """
-    title = models.CharField(max_length=300)
     message = models.TextField(default='')
     timestamp = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+    _pre_active = models.BooleanField(default=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='alerts'
     )
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __repr__(self):
-        return '<Alert: {}>'.format(self.title)
+        return '<Alert: {}>'.format(self.message)
 
     def __str__(self):
-        return '{} ({})'.format(self.title, self.user.username)
+        return '{} ({})'.format(self.message, self.user.username)
 
 
 class Resource(models.Model):

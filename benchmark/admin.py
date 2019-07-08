@@ -20,6 +20,7 @@ admin.site.register(EvaluationResult)
 admin.site.register(ApiSubmission)
 admin.site.register(DatasetImage)
 admin.site.register(Announcement)
+admin.site.register(Alert)
 
 class ProfileInLine(admin.StackedInline):
     model = Profile

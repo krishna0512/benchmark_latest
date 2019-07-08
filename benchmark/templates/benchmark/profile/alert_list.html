@@ -1,0 +1,29 @@
+{% extends "benchmark/profile/base.html" %}
+{% load static %}
+
+{% block user_content %}
+<div class="pt-3 px-4">
+	{% for alert in alert_active_list %}
+	<div class="alert alert-info" role="alert">
+		{{ alert.message }}
+	</div>
+	{% empty %}
+	No active Alerts for you.
+	{% endfor %}
+	<div class="space-xsmall"></div>
+	<a class="btn btn-primary mb-3 {% if not alert_inactive_list.count %}disabled{% endif %}" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+		Inactive Alerts
+	</a>
+	<div class="collapse" id="collapse1">
+		{% for alert in alert_inactive_list %}
+		<div class="alert alert-secondary" role="alert">
+			{{ alert.message }}
+		</div>
+		{% endfor %}
+		<a class="btn btn-sm btn-danger" href="{% url 'benchmark:delete-alerts' %}">Clear Alerts</a>
+	</div>
+</div>
+<div class="space-large"></div>
+<div class="space-small"></div>
+<div class="space-small"></div>
+{% endblock %}
