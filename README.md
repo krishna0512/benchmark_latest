@@ -26,16 +26,22 @@ $ pip install django-extensions
 $ python manage.py graph_models -a -o benchmark_models.png
 
 Installation Instruction:
-1. Create and activate a virtualenv using command inside the home folder of Django (where there is manage.py)
+-> Create and activate a virtualenv using command inside the home folder of Django (where there is manage.py)
+
 $ virtualenv benchmark_venv
+
 $ source benchmark_venv/bin/activate
 
-2. Install the requirements.txt
+-> Install the requirements.txt
+
 $ pip install -r requirements.txt
 
-3. Check for any new migrations and migrate the database.
+-> Check for any new migrations and migrate the database.
+
 $ python manage.py makemigrations
+
 $ python manage.py migrate
 
-4. Run the django server
+-> Run the django server
+
 $ python manage.py runserver
